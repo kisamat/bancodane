@@ -99,5 +99,8 @@ class Inicio extends CI_Controller {
         $html .= "</ul>\n";
         return $html;
     }
+    public function funcion_prueba(){
+        echo "esto es una prueba";
+    }
 
 }
