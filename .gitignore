@@ -1,0 +1,11 @@
+/dane_bancohv25042016.sql
+
+#netbeans ignore personal stuff
+nbproject/
+
+## generic files to ignore
+*~
+*.pdf
+*.PDF
+*.xls
+*.out
