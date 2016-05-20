@@ -189,7 +189,13 @@ if(count($experienciaUsuario)>0)
 						<a href="<?php echo base_url('ciudadano/principal/modificarBasica/') ?>" class="btn btn-info">
 						  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Actualizar Datos
 						</a>
-                    </div>                  
+                    </div>
+                                         <div class="col-sm-10 col-md-offset-1">
+                                             <br />               
+						<a href="<?php echo base_url('ciudadano/principal/informacionLaboral/') ?>" class="btn btn-info">
+						  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Información Laboral
+						</a>
+                    </div>                
                 </div>
 				<div class="row">
                     <div class="col-lg-12">

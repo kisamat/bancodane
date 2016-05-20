@@ -20,6 +20,10 @@ class Principal extends CI_Controller {
         $this->load->helper(array('url', 'form', 'html'));
         $this->load->library('session');
         
+        if($this->session->userdata('usuario') == FALSE )
+	{
+            redirect(base_url().'login');
+	}
         if(!($this->session->userdata('language')))
             {
                 $this->session->set_userdata('language', 'spanish');
@@ -362,6 +366,21 @@ class Principal extends CI_Controller {
         $datos["contenido"] = "ciudadano/actualizarDatos";
         $this->load->view('plantilla', $datos);
 	}
+        
+        public function informacionLaboral()
+	{
+            $datos["titulo"] = $this->general_model->rol_usuario($this->session->userdata('rol'))->descripcion;
+            $datos['tipovinculacion']=$this->perfil_model->tipoVinculacion();
+            $datos['dependdane']=$this->perfil_model->dependencia();
+            $datos['tipotrabajador']=$this->perfil_model->tipoTrabajador();
+            $datos['paises'] = $this->perfil_model->paises();
+            $datos['tipoEntidad'] = $this->perfil_model->tipoEntidad();
+            $datos['actEcono'] = $this->perfil_model->actividadEconomica();
+            $datos['datosUsuario'] = $this->perfil_model->datos_usuario($this->session->userdata('id_usuario'));
+            $datos['laboral'] = $this->perfil_model->datosLaborales($this->session->userdata('id_usuario'));
+            $datos["contenido"] = "ciudadano/informacionLaboral";
+            $this->load->view('plantilla', $datos);
+	}
 	
 	public function actualizarUsuario()
 	{		
@@ -434,8 +453,8 @@ class Principal extends CI_Controller {
 		$sigep = $_REQUEST['sigep'];
 		
 		$datosInfo['id_usuario'] = $this->session->userdata('id_usuario');
-		$datosInfo['nombres'] = $nombres;
-		$datosInfo['apellidos'] = $apellidos;
+		$datosInfo['trabaja'] = $nombres;
+		$datosInfo['trabaja_dane'] = $apellidos;
 		$datosInfo['email2'] = $email2;
 		$datosInfo['telefono'] = $telefono;
 		$datosInfo['celular'] = $celular;
@@ -461,7 +480,85 @@ class Principal extends CI_Controller {
 		}
 	}
 	
-	public function modificarFormacion($idFormacion)
+        public function actualizarInfoLaboral(){
+            
+            $datosInfo['id_usuario'] = $this->session->userdata('id_usuario');
+            $datosInfo['trabaja'] = $this->input->post('trabajo');
+            if($this->input->post('trabajo')=='S')
+            {
+                $datosInfo['trabaja_dane'] = $this->input->post('trabajodane');
+                $datosLaboral['id_usuario'] = $this->session->userdata('id_usuario');
+                if($this->input->post('trabajodane')=='N'){
+                    $datosLaboral['id_tipo_trabajador']= $this->input->post('tipotrabajador');
+                    if($this->input->post('tipotrabajador')==1)
+                    {
+                        $datosLaboral['id_tipo_vinculacion']= '';
+                        $datosLaboral['id_dependencia']= '';
+                        $datosLaboral['id_tipo_entidad']= $this->input->post('tipoentidad');
+                        $datosLaboral['entidad']= $this->input->post('inputEntidad');
+                        $datosLaboral['dependencia']= $this->input->post('inputDependencia');
+                        $datosLaboral['cargo']= $this->input->post('cargo');
+                        $datosLaboral['email']= $this->input->post('inputEmail');
+                        $datosLaboral['codi_pais']= $this->input->post('pais');
+                        $datosLaboral['ciudad']= $this->input->post('inputCiudad');
+                        $datosLaboral['direccion']= $this->input->post('inputDireccion');
+                        $datosLaboral['telefono']= $this->input->post('inputTelefono');
+                    }
+                    else
+                    {
+                        $datosLaboral['id_actividad_economica']= $this->input->post('acteconomica');
+                        $datosLaboral['id_tipo_vinculacion']= '';
+                        $datosLaboral['id_dependencia']= '';
+                        $datosLaboral['id_tipo_entidad']= '';
+                        $datosLaboral['entidad']= '';
+                        $datosLaboral['dependencia']= '';
+                        $datosLaboral['cargo']= '';
+                        $datosLaboral['email']= '';
+                        $datosLaboral['codi_pais']= '';
+                        $datosLaboral['ciudad']= '';
+                        $datosLaboral['direccion']= '';
+                        $datosLaboral['telefono']= '';
+                    }
+                        
+                }else{
+                    $datosLaboral['id_tipo_trabajador']= '';
+                    $datosLaboral['id_actividad_economica']= '';
+                    $datosLaboral['id_tipo_vinculacion']= $this->input->post('tipovinculacion');
+                    $datosLaboral['id_dependencia']= $this->input->post('dependencia-dane');
+                    $datosLaboral['cargo']= $this->input->post('cargo');
+                    $datosLaboral['email']= $this->input->post('inputEmail');
+                    $datosLaboral['ciudad']= $this->input->post('inputCiudad');
+                    $datosLaboral['direccion']= $this->input->post('inputDireccion');
+                    $datosLaboral['telefono']= $this->input->post('inputTelefono');
+                    
+                }
+                if(empty($this->input->post('idformato'))){
+                    $id=$this->perfil_model->insertarDatosInfoLaboral($datosLaboral);
+                }else{
+                    $id=$this->perfil_model->actualizarDatosInfoLaboral($datosLaboral);
+                }
+            }
+            else
+            {
+                $datosInfo['trabaja_dane']='';
+                
+            }
+            $resultadoIDActualiza = $this->perfil_model->actualizarUsuarioInfoLaboral($datosInfo);
+		
+            if($resultadoIDActualiza)
+		{
+                    $this->session->set_flashdata('retornoExito', 'Se actualiz&oacute; la informaci&oacute;n de perfil ');
+                    redirect(base_url('ciudadano/principal'), 'refresh');
+                    exit;
+            }else
+		{
+                    $this->session->set_flashdata('retornoError', 'Por favor verifique la informaci&oacute;n, no fue posible actualizar');
+                    redirect(base_url('ciudadano/principal'), 'refresh');
+                    exit;
+            }
+        }
+
+        public function modificarFormacion($idFormacion)
 	{
 		$idFormacion = strrev($idFormacion);
 		$idFormacion = base64_decode($idFormacion);

@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/banco/';
+$config['base_url'] = 'http://localhost/banco_dane/';
 
 /*
 |--------------------------------------------------------------------------

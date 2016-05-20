@@ -205,5 +205,49 @@ $(document).ready(function () {
 			{
 				$("#div_libreta").css("display", "none");
 			}
-	});	
+	});
+	$("#trabajo").change(function() {
+		
+		if($('#trabajo').val() == 'S')
+		{
+                    $("#inf-dane").css("display", "block");
+		}else{
+                    $("#inf-dane").css("display", "none");
+                    $("#inftrabajo-dane").css("display", "none");
+                    $("#inftrabajo-nodane").css("display", "none");
+                    $("#tipo-empleado").css("display", "none");
+                    $("#tipo-indepen").css("display", "none");
+		}
+	});
+        $("#trabajodane").change(function() {
+		
+		if($('#trabajodane').val() == 'S')
+		{
+                    $("#inftrabajo-nodane").css("display", "none");
+                    $('#inftrabajo-nodane').find('input, textarea, button, select').attr('disabled',true);
+                    $("#inftrabajo-dane").css("display", "block");
+                    $('#inftrabajo-dane').find('input, textarea, button, select').attr('disabled',false);
+                    
+		}else{
+                    $("#inftrabajo-dane").css("display", "none");
+                    $('#inftrabajo-dane').find('input, textarea, button, select').attr('disabled',true);
+                    $("#inftrabajo-nodane").css("display", "block");
+                    $('#inftrabajo-nodane').find('input, textarea, button, select').attr('disabled',false);
+                    
+		}
+	});
+        $("#tipotrabajador").change(function() {
+		
+		if($('#tipotrabajador').val() == 1)
+		{
+                    $("#tipo-indepen").css("display", "none");
+                    $("#tipo-empleado").css("display", "block");
+                    
+		}else{
+                    $("#tipo-empleado").css("display", "none");
+                    $("#tipo-indepen").css("display", "block");
+		}
+	});
+        
+        
 });

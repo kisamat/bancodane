@@ -12,8 +12,8 @@ class Perfil_model extends CI_Model {
         parent::__construct();
     }
 
-    public function datos_usuario($id_usuario) {
-        $cadena_sql = "SELECT us.id_usuario, nombres, apellidos, tipo_iden, nume_iden, fecha_naci, us.sexo as genero, desc_gene, nacionalidad, desc_pais,  ";
+    public function     datos_usuario($id_usuario) {
+        $cadena_sql = "SELECT us.id_usuario, nombres, apellidos, tipo_iden, nume_iden, fecha_naci, us.sexo as genero, desc_gene, nacionalidad, desc_pais, trabaja, trabaja_dane,  ";
         $cadena_sql.= "telefono, celular, email2, sigep, usuario, id_avatar, arc1.ruta as rutaA, arc1.nombre as nombA,  ";
         $cadena_sql.= " id_docIden, arc2.ruta as rutaDI, arc2.nombre as nombDI, ";
         $cadena_sql.= " id_docLib, arc3.ruta as rutaLM, arc3.nombre as nombLM ";
@@ -32,7 +32,16 @@ class Perfil_model extends CI_Model {
         
         return $result;
     }
-    
+    public function datosLaborales($id_usuario){
+        
+        $this->db->where(array('id_usuario'=>$id_usuario));
+        $query= $this->db->get('us_info_laboral');
+        $result = $query->result();
+        
+        return $result;
+    }
+
+
     public function modalidades() {
         $cadena_sql = "SELECT id_modalidad, desc_modalidad ";
         $cadena_sql.= "FROM param_modalidad ";
@@ -56,6 +65,76 @@ class Perfil_model extends CI_Model {
         
         return $result;
     }
+    /**
+     * @return array Este metodo retorna los tipo de vinculación del usuario si el mismo trabaja en el DANE
+     */
+    public function tipoVinculacion() {
+        $cadena_sql = "SELECT id_tipo_vinculacion, nom_vinculacion ";
+        $cadena_sql.= "FROM param_tipo_vinculacion ";
+        $cadena_sql.= "WHERE estado = '1'";
+        
+        $query = $this->db->query($cadena_sql);
+        
+        $result = $query->result();
+        
+        return $result;
+    }
+    /**
+     * @return array Este metodo retorna las dependencia del usuario si el mismo trabaja en el DANE
+     */
+    public function dependencia() {
+        $cadena_sql = "SELECT id_dependencia, nom_dependencia ";
+        $cadena_sql.= "FROM param_dependencia ";
+        $cadena_sql.= "WHERE estado = '1'";
+        
+        $query = $this->db->query($cadena_sql);
+        
+        $result = $query->result();
+        
+        return $result;
+    }   
+    /**
+     * @return array Este metodo retorna los tipos de empleo del usuario si no trabaja en el DANE
+     */
+    public function tipoTrabajador() {
+        $cadena_sql = "SELECT id_tipo_trabajador, nom_tipo_trabajador ";
+        $cadena_sql.= "FROM param_tipo_trabajador ";
+        $cadena_sql.= "WHERE estado = '1'";
+        
+        $query = $this->db->query($cadena_sql);
+        
+        $result = $query->result();
+        
+        return $result;
+    }       
+    /**
+     * @return array Este metodo retorna lac actividades economicas para los usuarios que son independientes 
+     */
+    public function actividadEconomica() {
+        $cadena_sql = "SELECT id_actividad_economica, nom_actividad_economica ";
+        $cadena_sql.= "FROM param_actividad_economica ";
+        $cadena_sql.= "WHERE estado = '1'";
+        
+        $query = $this->db->query($cadena_sql);
+        
+        $result = $query->result();
+        
+        return $result;
+    } 
+    /**
+     * @return array Este metodo retorna lac actividades economicas para los usuarios que son independientes 
+     */
+    public function tipoEntidad() {
+        $cadena_sql = "SELECT id_tipo_entidad, nom_tipo_entidad ";
+        $cadena_sql.= "FROM param_tipo_entidad ";
+        $cadena_sql.= "WHERE estado = '1'";
+        
+        $query = $this->db->query($cadena_sql);
+        
+        $result = $query->result();
+        
+        return $result;
+    }     
 	
 	public function areas() {
 		$cadena_sql = "SELECT id_areacono, desc_areacono ";
@@ -68,6 +147,7 @@ class Perfil_model extends CI_Model {
 		
 		return $result;
 	}
+        
 	
 	public function programaAcademico($area, $nivel) {
         $cadena_sql = "SELECT id_programa, desc_programa ";
@@ -271,7 +351,7 @@ class Perfil_model extends CI_Model {
         
     }
 	
-	function actualizarDatos($datosInfo)
+    public	function actualizarDatos($datosInfo)
     {		
         $data = array(
             'nombres' => $datosInfo['nombres'],
@@ -290,8 +370,31 @@ class Perfil_model extends CI_Model {
         return $this->db->update('usuario', $data);
         
     }
+    public function actualizarUsuarioInfoLaboral($datosInfo){
+        $data = array(
+            'trabaja' => $datosInfo['trabaja'],
+            'trabaja_dane' => $datosInfo['trabaja_dane']
+        );
+        $this->db->where('id_usuario', $datosInfo['id_usuario']);
+        return $this->db->update('usuario', $data);
+        
+    }
+    public function insertarDatosInfoLaboral($datos){
+        $this->db->trans_start();
+        $this->db->insert('us_info_laboral', $datos);
+        $insert_id = $this->db->insert_id();
+        $this->db->trans_complete();
+        return  $insert_id;
+    }
 
-	function actualizaFormacion($datosInfo)
+    public function actualizarDatosInfoLaboral($data){
+        $this->db->where('id_usuario', $data['id_usuario']);
+        return $this->db->update('us_info_laboral', $data);
+        
+        
+    }
+
+    public function actualizaFormacion($datosInfo)
     {		
         $data = array(
             'id_modalidad' => $datosInfo['id_modalidad'],
