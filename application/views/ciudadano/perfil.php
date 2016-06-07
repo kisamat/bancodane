@@ -97,33 +97,41 @@ if(count($experienciaUsuario)>0)
 
             <!-- Heading 
             ================================================== -->
-		<div id="header" class="row">
-            <div class="col-sm-3">
-				<div class="col-sm-12">
-				<?php
+            <div class="panel panel-default">
+                <div class="panel-heading text-right">
+                    <div class="nav">
+                    <div class="btn-group pull-left" data-toggle="buttons">
+			<label>
+			Perfil
+                        </label>
+                    </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>
+                                    <?php
 					if($datosUsuario[0]->id_avatar == 0)
 					{
 						?>
-						<img class="propic" id="imgSalida" src="<?php echo base_url('assets/img/avatar.png')?>" width="200" alt="">
+						<img class="propic" id="imgSalida" src="<?php echo base_url('assets/img/avatar.png')?>" width="160" alt="">
 						<?php
 					}else
 					{						
 						?>
-						<img class="propic" id="imgSalida" src="<?php echo base_url('uploads/avatar/'.$datosUsuario[0]->nombA)?>" width="200" alt="">
+						<img class="propic" id="imgSalida" src="<?php echo base_url('uploads/avatar/'.$datosUsuario[0]->nombA)?>" width="160" alt="">
 						<?php
 					}
-				?>
-                <div class="col-sm-10 col-md-offset-1" >	
+                                    ?>
+                                               <br />
+                                               
 				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#cambiarAvatar">
 				  <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> Cambiar Imagen
 				</button>
-				</div>
-				<div class="col-sm-12">
-					<a href="<?php echo base_url('ciudadano/principal/descargarHV/') ?>" target='_blank'>
-					  <span class='glyphicon glyphicon-file' aria-hidden='true'></span> Descargar Hoja de Vida</a>
-					</a>
-				</div> 
-				<div class="modal fade bs-example-modal-lg" id="cambiarAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <!--inicio modal foto-->
+                                <div class="modal fade bs-example-modal-lg" id="cambiarAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				  <div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 					  <div class="modal-header">
@@ -149,83 +157,52 @@ if(count($experienciaUsuario)>0)
 					</div>
 				  </div>
 				</div>	
-				</div>
-            </div>
-			
-            <!-- photo end-->
-            <div class="col-sm-6">
-                <div class="cv-title">
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <h3><?php echo $datosUsuario[0]->nombres." ".$datosUsuario[0]->apellidos;?></h3>
-                        </div>                        
-                    </div>
-                    <h6><b>N&uacute;mero de Identificaci&oacute;n: </b><?php echo $datosUsuario[0]->nume_iden?></h6>
-                    <h6><b>Nacionalidad: </b><?php echo $datosUsuario[0]->desc_pais?></h6>
-                    <h6><b>Fecha de Nacimiento: </b><?php echo date($datosUsuario[0]->fecha_naci)?></h6>
-                    <h6><b>T&eacute;lefono: </b><?php echo $datosUsuario[0]->telefono?></h6>
-                    <h6><b>Celular: </b><?php echo $datosUsuario[0]->celular?></h6>
-                    <h6><b>Genero: </b><?php echo $datosUsuario[0]->desc_gene?></h6>
-                    <h6><b>Correo Electr&oacute;nico Principal: </b><?php echo $datosUsuario[0]->usuario?></h6>
-                    <h6><b>Correo Electr&oacute;nico Secundario: </b><?php echo $datosUsuario[0]->email2?></h6>
-                    <h6><b>Hoja de vida actualizada en el SIGEP: </b><?php if($datosUsuario[0]->sigep == "S"){echo "SI";}else{echo "NO";}?></h6>
-                    <h6><b>Tiempo de Experiencia: </b><?php echo $tiempoExperiencia?></h6>
-                </div>                
-            </div>
-			<div class="col-sm-3">
-				<div class="row">
-                    <div class="col-sm-12">
-						<b>Hoja de Vida</b>
-                        <div class="progress">
-						  <div class="progress-bar <?= $classhv?>  progress-bar-striped" role="progressbar"
-						  aria-valuenow="<?php echo $hv?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $hv?>%">
-							<?php echo $hv?>%
-						  </div>
-						</div>
-                    </div>                  
-                </div>
-				<div class="row">
-                    <div class="col-sm-10 col-md-offset-1">
-						<a href="<?php echo base_url('ciudadano/principal/modificarBasica/') ?>" class="btn btn-info">
-						  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Actualizar Datos
-						</a>
-                    </div>
-                                         <div class="col-sm-10 col-md-offset-1">
-                                             <br />               
-						<a href="<?php echo base_url('ciudadano/principal/informacionLaboral/') ?>" class="btn btn-info">
-						  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Información Laboral
-						</a>
-                    </div>                
-                </div>
-				<div class="row">
-                    <div class="col-lg-12">
-						<?php
-							if($datosUsuario[0]->rutaDI != '')
-							{
-                                                            echo "<br><a href='".base_url('uploads/'.$datosUsuario[0]->nombDI)."' target='_blank'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Ver Documento Identificaci&oacute;n</a>";
-                                                        }else{
-                                                            echo "<br><span class='glyphicon glyphicon-file' aria-hidden='true'></span><font color='red'> Falta Documento Identificaci&oacute;n</font>";
-                                                        }
-						?>
-                    </div>                  
-                </div>
-				<div class="row">
-                    <div class="col-lg-12">
-						<?php
-						if($datosUsuario[0]->genero == 'M')
+                                <!-- final modal foto -->
+                                </td>
+                                <td>
+                                    <h3><?php echo $datosUsuario[0]->nombres." ".$datosUsuario[0]->apellidos;?></h3>
+                                    <h4><b>N&uacute;mero de Identificaci&oacute;n: </b><?php echo $datosUsuario[0]->nume_iden?></h5>
+                                    <h5><b>Nacionalidad: </b><?php echo $datosUsuario[0]->desc_pais?></h5>
+                                    <h5><b>Fecha de Nacimiento: </b><?php echo date($datosUsuario[0]->fecha_naci)?></h5>
+                                    <h5><b>T&eacute;lefono: </b><?php echo $datosUsuario[0]->telefono?></h5>
+                                    <h5><b>Celular: </b><?php echo $datosUsuario[0]->celular?></h5>
+                                    <h5><b>Genero: </b><?php echo $datosUsuario[0]->desc_gene?></h5>
+                                    <h5><b>Correo Electr&oacute;nico Principal: </b><?php echo $datosUsuario[0]->usuario?></h5>
+                                    <h5><b>Correo Electr&oacute;nico Secundario: </b><?php echo $datosUsuario[0]->email2?></h5>
+                                    <h5><b>Hoja de vida actualizada en el SIGEP: </b><?php if($datosUsuario[0]->sigep == "S"){echo "SI";}else{echo "NO";}?></h5>
+                                    <h5><b>Tiempo de Experiencia: </b><?php echo $tiempoExperiencia?></h5>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php
+                                            if($datosUsuario[0]->rutaDI != '')
+                                            {
+                                                echo "<br><a href='".base_url('uploads/'.$datosUsuario[0]->nombDI)."' target='_blank'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Ver Documento Identificaci&oacute;n</a>";
+                                            }else{
+                                                echo "<br><span class='glyphicon glyphicon-file' aria-hidden='true'></span><font color='red'> Falta Documento Identificaci&oacute;n</font>";
+                                            }
+					?>
+                                    </p>
+                                    <p>
+                                        <?php
+                                            if($datosUsuario[0]->genero == 'M')
+                                            {
+                                                if($datosUsuario[0]->rutaLM != '')
 						{
-							if($datosUsuario[0]->rutaLM != '')
-							{
-                                                            echo "<br><a href='".base_url('uploads/'.$datosUsuario[0]->nombLM)."' target='_blank'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Ver Libreta Militar</a>";
-                                                        }else{
-                                                            echo "<br><span class='glyphicon glyphicon-file' aria-hidden='true'></span><font color='red'> Falta Libreta Militar</font>";
-                                                        }
-						}							
-						?>
-                    </div>                  
+                                                    echo "<br><a href='".base_url('uploads/'.$datosUsuario[0]->nombLM)."' target='_blank'><span class='glyphicon glyphicon-file' aria-hidden='true'></span> Ver Libreta Militar</a>";
+                                                }else{
+                                                    echo "<br><span class='glyphicon glyphicon-file' aria-hidden='true'></span><font color='red'> Falta Libreta Militar</font>";
+                                                }
+                                            }							
+					?>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-			</div>
-        </div><!-- header end-->		
+            </div>            
+<!-- header end-->		
 
         <div class="panel panel-default">
 			<div class="panel-heading text-right">

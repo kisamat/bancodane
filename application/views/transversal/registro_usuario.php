@@ -22,17 +22,13 @@ if ($retornoError) {
 }
 ?>
 
-<div class="section" style="background-image: url(<?php echo base_url('assets/img/registro.jpg');?>);">
     <div class="container">
         <div class="col-md-6 col-md-offset-3">
         	<div class="row" style="background-color: #A1134D; opacity: 0.9; z-index: -10000;">
-        		<p><center><h1 style="color: #FFFFFF">BANCO</h1></center></p>
-        		<p><center><h1 style="color: #FFFFFF"><b>DE HOJAS DE VIDA</b></h1></center></p>
+        		<p><center><h1 style="color: #FFFFFF">Inscripción cursos de extensión</h1></center></p>
         	</div>
             <div class="row" style="background-color: white; opacity: 0.9; z-index: 10000;">
-                <div class="col-md-12 text-center">
-                    <center><h4 class="text-center">&Uacute;nete al <b>banco de hojas de vida</b> y podr&aacute;s participar de las convocatorias del personal operativo de las <b>investigaciones del DANE</b></h4></center>
-                </div>
+               
                 <div class="col-md-12">
                     <form class="form-horizontal" role="form" id="formCrearUsuario" action="<?php echo base_url('transversal/registro_usuario/guardarUsuario') ?>" name="formCrearUsuario" method="post">
                         <div class="form-group has-feedback">
@@ -115,7 +111,6 @@ if ($retornoError) {
             </div>
         </div>
     </div>
-</div>
 
 <!-- Modal de Formacion Academica -->
 <div class="modal fade bs-example-modal-lg" id="modalConvocatoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

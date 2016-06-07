@@ -14,7 +14,7 @@
 						if (is_array($menu_hijos) && count($menu_hijos) > 0) {
 							?>
 							<li class="dropdown">
-								<a href="<?php echo $mp->href ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $this->lang->line($mp->descripcion) ?><span class="caret"></span></a>
+								<a href="<?php echo base_url($mp->href) ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo $mp->descripcion ?><span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<?php
 									foreach ($menu_hijos as $mh) {

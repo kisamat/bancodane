@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>DANE - Banco de Hojas de Vida</title>
+        <title>DANE - Curso de inscripción</title>
 
         <link href="<?= base_url('assets/css/general/estiloGeneral.css') ?>" rel="stylesheet" media="screen">
         <link href="<?= base_url('assets/css/general/login.css') ?>" rel="stylesheet" media="screen">
@@ -133,7 +133,7 @@
         }
         ?>
         
-        <section class="container">
+        <section>
             <?php $this->load->view($contenido) ?>
         </section>
         <footer class="footer">

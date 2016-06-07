@@ -2,16 +2,90 @@
 	margin-bottom:150px !important;
 }
 
-.footer {
-	background-color: #B3134F;
-	bottom: 0;
-	height: 60px;
-	position: relative;
+footer {
 	width: 100%;
-	padding: 20px;
-	z-index: 200;
+	background-color:#424242;
+	//position:fixed;
+	bottom:0;
 }
 
+.txtFooter {
+	font-size: 0.8em;
+	text-align: center;
+	position: relative;
+	margin: 0 auto;
+	width: 70%;
+	padding: 1em;
+}
+.blanco {
+    color: #fff;
+}
+strong {
+    font-family: "Open Sans",sans-serif;
+    font-weight: 700;
+}
+/**header nuevo**/
+header {
+    
+    background-color:#fff;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    -moz-flex-direction: column;
+    flex-direction: column;
+}
+
+.logos{
+	width: 400px; 
+	height: 80px;
+	margin-top: 10px;
+	background-image:url(../img/logos.png);
+	background-repeat:no-repeat;
+        float:left;
+        margin-bottom:10px;
+}
+.login-inicial{
+	width: auto; 
+	height: auto;
+	margin-top: 10px;
+        float:left;
+        margin-bottom:10px;
+}
+
+
+
+.separador {
+	width: 100%;
+	height: 34px;
+	background-image: url(../img/franja.jpg);
+	background-position:center;
+}
+
+/**end header nuevo**/
+
+/**seccion**/
+section {
+	
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
+    padding:5px 0;
+}
+/***/
 #colorbar {
 	background-color: rgb(182, 1, 76);
 	height: 15px;

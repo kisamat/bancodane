@@ -79,7 +79,7 @@ class Registro_usuario extends CI_Controller {
 			$mail = new PHPMailer();
 			$mail->IsSMTP(); // establecemos que utilizaremos SMTP
 			$mail->IsHTML(true);
-			$mail->SetFrom('dane-bhv@dane.gov.co', 'DANE - Banco de Hojas de Vida');  //Quien env&iacute;a el correo
+			$mail->SetFrom('dane-bhv@dane.gov.co', 'DANE - Cursos de Inscripción');  //Quien env&iacute;a el correo
 			$mail->Subject = "Activar Cuenta DANE - Banco de Hojas de Vida";  //Asunto del mensaje
 
 			$html = '			
